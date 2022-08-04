@@ -20,8 +20,9 @@ let server = http.listen(3000, function () {
     console.log(`Server listening on: ${host}, port: ${port}`);
 });
 
-app.get('/test', function(req, res){
-    res.sendFile(__dirname + '/www/test.html');
+// doesn't work because entry point is index.html in package.json
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/www/login.html');
 });
 
 app.get('/login', function(req, res){
@@ -37,20 +38,22 @@ app.post('/login', (req, res) => {
         ]
     };
 
-    let username = req.body.username;
-    let password = req.body.password;
-    res.send(`Username: ${username} Password: ${password}`);
+    var customer = {};
+    customer.username = req.body.username;
+    customer.password = req.body.password;
+    customer.valid = false;
+    // res.send(`Username: ${username} Password: ${password}`);
 
     for(var i=0; i<dummyData.users.length; i++){
         jsonData = dummyData.users;
-        if (jsonData[i]["userName"] === username && jsonData[i]["passWord"] === password){
+        if (jsonData[i]["userName"] === req.body.username && jsonData[i]["passWord"] === req.body.password){
             console.log("Match found");
-            // return {"valid": true};
+            customer.valid = true;
         } else {
             console.log("No match");
-            // return {"valid": false};
         };
     }
+    res.send(customer);
 });
 
 app.get('/account', function(req, res){
