@@ -3,10 +3,15 @@ const { path } = require('express/lib/application');
 const { hostname } = require('os');
 var app = express();
 var http = require('http').Server(app);
-app.use(express.static(__dirname + '/www'));
-
+// for getting user input from html body
+const bodyParser = require('body-parser');
 // home route
-require('/routes/homeroute.js').route(app, path);
+// require('/routes/homeroute.js').route(app, path);
+
+app.use(express.static(__dirname + '/www'));
+app.use(bodyParser.urlencoded({ extended: false }))
+
+
 
 let server = http.listen(3000, function () {
     let host = server.address().address;
