@@ -11,8 +11,6 @@ const bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/www'));
 app.use(bodyParser.urlencoded({ extended: false }))
 
-
-
 let server = http.listen(3000, function () {
     let host = server.address().address;
     let port = server.address().port;
@@ -29,6 +27,7 @@ app.get('/login', function(req, res){
     res.sendFile(__dirname + '/www/login.html');
 });
 
+// when i make this /api/login it doesn't work? said in lecture that I could make this anything
 app.post('/login', (req, res) => {
     var dummyData = {
         "users": [
