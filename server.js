@@ -6,7 +6,7 @@ var http = require('http').Server(app);
 // for getting user input from html body
 const bodyParser = require('body-parser');
 // home route
-// require('/routes/homeroute.js').route(app, path);
+// require('./routes/homeroute.js').route(app, path);
 
 app.use(express.static(__dirname + '/www'));
 app.use(bodyParser.urlencoded({ extended: false }))
