@@ -29,9 +29,28 @@ app.get('/login', function(req, res){
 });
 
 app.post('/login', (req, res) => {
+    var dummyData = {
+        "users": [
+            {"userName": "kevin", "passWord": "123"},
+            {"userName": "cat", "passWord": "meow"},
+            {"userName": "dog", "passWord": "woof"}
+        ]
+    };
+
     let username = req.body.username;
     let password = req.body.password;
     res.send(`Username: ${username} Password: ${password}`);
+
+    for(var i=0; i<dummyData.users.length; i++){
+        jsonData = dummyData.users;
+        if (jsonData[i]["userName"] === username && jsonData[i]["passWord"] === password){
+            console.log("Match found");
+            // return {"valid": true};
+        } else {
+            console.log("No match");
+            // return {"valid": false};
+        };
+    }
 });
 
 app.get('/account', function(req, res){
