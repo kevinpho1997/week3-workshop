@@ -8,7 +8,9 @@ $( document ).ready(function() {
     function ajaxPost(){
         var formData = {
             username: $("#username").val(),
-            password: $("password").val()
+            password: $("#password").val()
         };
+
+        
     }
 });
