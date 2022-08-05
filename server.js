@@ -4,9 +4,11 @@ var http = require('http').Server(app);
 // for getting user input from html body
 // home route
 // require('./routes/homeroute.js').route(app, path);
-
+var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/www'));
-app.use(express.urlencoded({ extended: false }))
+// the reason why server.js was not working last week was because the below code is required, which was asked to be removed
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 let server = http.listen(3000, function () {
     let host = server.address().address;
@@ -20,13 +22,13 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/www/login.html');
 });
 
-app.get('/login', function(req, res){
-    res.sendFile(__dirname + '/www/login.html');
-});
+// app.get('/login', function(req, res){
+//     res.sendFile(__dirname + '/www/login.html');
+// });
 
 // when i make this /api/login it doesn't work? said in lecture that I could make this anything
 app.post('/login', (req, res) => {
-    var dummyData = {
+    let dummyData = {
         "users": [
             {"userName": "kevin", "passWord": "123"},
             {"userName": "cat", "passWord": "meow"},
@@ -37,12 +39,13 @@ app.post('/login', (req, res) => {
     var customer = {};
     customer.username = req.body.username;
     customer.password = req.body.password;
+    console.log(req.body);
     customer.valid = false;
     // res.send(`Username: ${username} Password: ${password}`);
 
     for(var i=0; i<dummyData.users.length; i++){
         jsonData = dummyData.users;
-        if (jsonData[i]["userName"] === req.body.username && jsonData[i]["passWord"] === req.body.password){
+        if (jsonData[i]["userName"] == req.body.username && jsonData[i]["passWord"] == req.body.password){
             console.log("Match found");
             customer.valid = true;
         } else {
