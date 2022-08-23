@@ -19,15 +19,14 @@ let server = http.listen(3000, function () {
 
 // doesn't work because entry point is index.html in package.json
 app.get('/', function(req, res){
-    res.sendFile(__dirname + '/www/login.html');
+    res.sendFile(__dirname + '/www/test.html');
 });
 
 // app.get('/login', function(req, res){
 //     res.sendFile(__dirname + '/www/login.html');
 // });
 
-// when i make this /api/login it doesn't work? said in lecture that I could make this anything
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     let dummyData = {
         "users": [
             {"userName": "kevin", "passWord": "123"},

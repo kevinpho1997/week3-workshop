@@ -11,9 +11,11 @@ $( document ).ready(function() {
             username: $("#username").val(),
             password: $("#password").val()
         };
+        console.log(formData);
         $.ajax({
             type: "POST",
             contentType: "application/json",
+            // url: window.location + "login",
             url: window.location + "login",
             data: JSON.stringify(formData),
             dataType: 'json',
